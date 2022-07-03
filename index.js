@@ -1,20 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const config = require("config");
+import express, { json } from 'express';
+import jwt from 'jsonwebtoken';
 
-const app = express()
-const PORT = config.get('serverPort')
+const app = express();
 
-const start = async() => {
-    try{
-        await mongoose.connect(config.get("dbUrl")) 
+app.use(express.json());
 
-        app.listen(PORT, () => {
-            console.log('Server started on port', PORT)
-        })
-    } catch(e){
+app.get('/', (req, res) => {
+    res.send("Hello Frontend!");
+});
 
+app.post("/sneaker", (req, res) => {
+    res.json({
+        success:true
+    });
+});
+
+app.listen(4444, (err) =>{
+    if (err){
+        return console.log("err");
+    }else{
+        console.log("Server OK");
     }
-}
-
-start()
+});
